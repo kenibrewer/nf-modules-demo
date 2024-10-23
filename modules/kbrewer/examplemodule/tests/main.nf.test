@@ -5,8 +5,8 @@ nextflow_process {
     process "EXAMPLEMODULE"
 
     tag "modules"
-    tag "modules_{{short_org_name}}"
-    tag "example_module"
+    tag "modules_kbrewer"
+    tag "examplemodule"
 
     test("sarscov2 single-end [fastq]") {
 
