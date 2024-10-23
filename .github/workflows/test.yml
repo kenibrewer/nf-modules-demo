@@ -145,8 +145,8 @@ jobs:
       matrix:
         tags:
           [
-            " ${{ fromJson(needs.pytest-changes.outputs.modules) }}",
-            " ${{ fromJson(needs.nf-test-changes.outputs.modules) }}",
+            "${{ fromJson(needs.pytest-changes.outputs.modules) }}",
+            "${{ fromJson(needs.nf-test-changes.outputs.modules) }}",
           ]
     steps:
       - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4
@@ -191,8 +191,8 @@ jobs:
       matrix:
         tags:
           [
-            " ${{ fromJson(needs.pytest-changes.outputs.subworkflows) }}",
-            " ${{ fromJson(needs.nf-test-changes.outputs.subworkflows) }}",
+            "${{ fromJson(needs.pytest-changes.outputs.subworkflows) }}",
+            "${{ fromJson(needs.nf-test-changes.outputs.subworkflows) }}",
           ]
     steps:
       - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4
@@ -227,7 +227,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        tags: [" ${{ fromJson(needs.pytest-changes.outputs.tags) }}"]
+        tags: ["${{ fromJson(needs.pytest-changes.outputs.tags) }}"]
         profile: [conda, docker, singularity]
         exclude:
           - tags: nf-test
@@ -261,7 +261,7 @@ jobs:
       - name: Setup Nextflow ${{ matrix.NXF_VER }}
         uses: nf-core/setup-nextflow@v2
         with:
-          version: " ${{ matrix.NXF_VER }}"
+          version: "${{ matrix.NXF_VER }}"
 
       - name: Setup apptainer
         if: matrix.profile == 'singularity'
@@ -293,7 +293,7 @@ jobs:
         # TODO Only run if the tag includes `sentieon`
         if: env.SENTIEON_ENCRYPTION_KEY != null && env.SENTIEON_LICENSE_MESSAGE != null
         run: |
-          nextflow secrets set SENTIEON_AUTH_DATA $(python3 tests/modules/nf-core/sentieon/license_message.py encrypt --key "${{ secrets.SENTIEON_ENCRYPTION_KEY }}" --message " ${{ secrets.SENTIEON_LICENSE_MESSAGE }}")
+          nextflow secrets set SENTIEON_AUTH_DATA $(python3 tests/modules/nf-core/sentieon/license_message.py encrypt --key "${{ secrets.SENTIEON_ENCRYPTION_KEY }}" --message "${{ secrets.SENTIEON_LICENSE_MESSAGE }}")
 
       # Test the module
       - name: Run pytest-workflow
@@ -337,7 +337,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        path: [" ${{ fromJson(needs.nf-test-changes.outputs.paths) }}"]
+        path: ["${{ fromJson(needs.nf-test-changes.outputs.paths) }}"]
         profile: [conda, docker_self_hosted, singularity]
         exclude:
           - path: modules/nf-core/nf-test
@@ -412,7 +412,7 @@ jobs:
           SENTIEON_AUTH_MECH: "GitHub Actions - token"
         run: |
           # use "docker_self_hosted" if it runs on self-hosted runner and matrix.profile=docker
-          if [ " ${{ matrix.profile }}" == "docker" ]; then
+          if [ "${{ matrix.profile }}" == "docker" ]; then
             PROFILE="docker_self_hosted"
           else
             PROFILE= ${{ matrix.profile }}
