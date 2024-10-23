@@ -34,6 +34,7 @@ process EXAMPLEMODULE {
     def fastqc_memory = memory_in_mb > 10000 ? 10000 : (memory_in_mb < 100 ? 100 : memory_in_mb)
 
     """
+    echo "Renaming files to ${prefix}.*"
     printf "%s %s\\n" $rename_to | while read old_name new_name; do
         [ -f "\${new_name}" ] || ln -s \$old_name \$new_name
     done
