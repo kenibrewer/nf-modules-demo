@@ -1,4 +1,4 @@
-# kenibrewer/modules
+# kenibrewer/nf-modules-demo
 
 Adapted from [nf-core/modules/README.md](https://github.com/nf-core/modules/blob/master/README.md)
 
@@ -11,7 +11,7 @@ An nf-core modules repository hosting Nextflow DSL2 modules for the kenibrewer o
 
 ## Table of contents
 
-- [kenibrewer/modules](#kenibrewer/modules)
+- [kenibrewer/nf-modules-demo](#kenibrewer/nf-modules-demo)
   - [Table of contents](#table-of-contents)
   - [Using existing modules](#using-existing-modules)
   - [Adding new modules](#adding-new-modules)
@@ -28,7 +28,7 @@ We use a helper command in the `nf-core/tools` package that uses the GitHub API 
 2. List the available modules:
 
     ```bash
-    nf-core modules --git-remote https://github.com/kenibrewer/modules.git list remote
+    nf-core modules --git-remote https://github.com/kenibrewer/nf-modules-demo.git list remote
     ```
     ```console
 
@@ -40,7 +40,7 @@ We use a helper command in the `nf-core/tools` package that uses the GitHub API 
 
     nf-core/tools version 3.0.1 - https://nf-co.re
 
-    INFO     Modules available from https://github.com/kenibrewer/modules.git (main):
+    INFO     Modules available from https://github.com/kenibrewer/nf-modules-demo.git (main):
 
     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
     ┃ Module Name                    ┃
@@ -52,7 +52,7 @@ We use a helper command in the `nf-core/tools` package that uses the GitHub API 
 3. Install the module in your pipeline directory:
 
     ```bash
-    nf-core modules --git-remote https://github.com/kenibrewer/modules.git install examplemodule
+    nf-core modules --git-remote https://github.com/kenibrewer/nf-modules-demo.git install examplemodule
     ```
     ```console
 
@@ -83,7 +83,7 @@ We use a helper command in the `nf-core/tools` package that uses the GitHub API 
 5. Remove the module from the pipeline repository if required:
 
     ```bash
-    nf-core modules --git-remote https://github.com/kenibrewer/modules.git remove examplemodule
+    nf-core modules --git-remote https://github.com/kenibrewer/nf-modules-demo.git remove examplemodule
     ```
     ```console
 
@@ -101,7 +101,7 @@ We use a helper command in the `nf-core/tools` package that uses the GitHub API 
 6. Check that a locally installed nf-core module is up-to-date compared to the one hosted in this repo:
 
     ```bash
-    nf-core modules --git-remote https://github.com/kenibrewer/modules.git lint examplemodule
+    nf-core modules --git-remote https://github.com/kenibrewer/nf-modules-demo.git lint examplemodule
     ```
     ```console
 

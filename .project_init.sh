@@ -12,6 +12,6 @@ fi
 
 git init --initial-branch=main
 git add .
-git commit -a -m '🎉 init: kenibrewer/modules'
+git commit -a -m '🎉 init: kenibrewer/nf-modules-demo'
 
 # here more initilization stuff
