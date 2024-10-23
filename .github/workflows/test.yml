@@ -6,14 +6,6 @@ on:
     types: [checks_requested]
     branches: [main]
   workflow_dispatch:
-    inputs:
-      runners:
-        description: "Runners to test on"
-        type: choice
-        options:
-          - "ubuntu-latest"
-          - "self-hosted"
-        default: "self-hosted"
 
 # Cancel if a newer run is started
 concurrency:
@@ -338,7 +330,7 @@ jobs:
       fail-fast: false
       matrix:
         path: ["${{ fromJson(needs.nf-test-changes.outputs.paths) }}"]
-        profile: [conda, docker_self_hosted, singularity]
+        profile: [conda, docker, singularity]
         exclude:
           - path: modules/nf-core/nf-test
     env:
@@ -411,13 +403,6 @@ jobs:
           SENTIEON_LICSRVR_IP: ${{ secrets.SENTIEON_LICSRVR_IP }}
           SENTIEON_AUTH_MECH: "GitHub Actions - token"
         run: |
-          # use "docker_self_hosted" if it runs on self-hosted runner and matrix.profile=docker
-          if [ "${{ matrix.profile }}" == "docker" ]; then
-            PROFILE="docker_self_hosted"
-          else
-            PROFILE= ${{ matrix.profile }}
-          fi
-
           NFT_WORKDIR=~ \
           nf-test test \
             --profile= ${{ matrix.profile }} \
