@@ -21,10 +21,10 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  NXF_SINGULARITY_CACHEDIR:  ${{ github.workspace }}/.singularity
-  NXF_SINGULARITY_LIBRARYDIR:  ${{ github.workspace }}/.singularity
-  SENTIEON_LICENSE_MESSAGE:  ${{ secrets.SENTIEON_LICENSE_MESSAGE }}
-  SENTIEON_ENCRYPTION_KEY:  ${{ secrets.SENTIEON_ENCRYPTION_KEY }}
+  NXF_SINGULARITY_CACHEDIR: ${{ github.workspace }}/.singularity
+  NXF_SINGULARITY_LIBRARYDIR: ${{ github.workspace }}/.singularity
+  SENTIEON_LICENSE_MESSAGE: ${{ secrets.SENTIEON_LICENSE_MESSAGE }}
+  SENTIEON_ENCRYPTION_KEY: ${{ secrets.SENTIEON_ENCRYPTION_KEY }}
 
 jobs:
   pre-commit:
@@ -75,9 +75,9 @@ jobs:
     name: pytest-changes
     runs-on: ubuntu-latest
     outputs:
-      tags:  ${{ steps.filter.outputs.changes }}
-      modules:  ${{ steps.tags.outputs.modules }}
-      subworkflows:  ${{ steps.tags.outputs.subworkflows }}
+      tags: ${{ steps.filter.outputs.changes }}
+      modules: ${{ steps.tags.outputs.modules }}
+      subworkflows: ${{ steps.tags.outputs.subworkflows }}
     steps:
       - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4
         with:
@@ -98,17 +98,17 @@ jobs:
 
       - name: debug
         run: |
-          echo  ${{ steps.tags.outputs.modules }}
-          echo  ${{ steps.tags.outputs.subworkflows }}
+          echo ${{ steps.tags.outputs.modules }}
+          echo ${{ steps.tags.outputs.subworkflows }}
 
   nf-test-changes:
     name: nf-test-changes
     runs-on: ubuntu-latest
     outputs:
       # Expose detected tags as 'modules' and 'workflows' output variables
-      paths:  ${{ steps.list.outputs.components }}
-      modules:  ${{ steps.outputs.outputs.modules }}
-      subworkflows:  ${{ steps.outputs.outputs.subworkflows}}
+      paths: ${{ steps.list.outputs.components }}
+      modules: ${{ steps.outputs.outputs.modules }}
+      subworkflows: ${{ steps.outputs.outputs.subworkflows}}
       # Prod for version bumping
 
     steps:
@@ -120,8 +120,8 @@ jobs:
         id: list
         uses: adamrtalbot/detect-nf-test-changes@7c8be3ffd0d6538312b363c8c949dbbf5f26c3dd # v0.0.4
         with:
-          head:  ${{ github.sha }}
-          base:  ${{ github.event.pull_request.base.sha || github.event.merge_group.base_sha }}
+          head: ${{ github.sha }}
+          base: ${{ github.event.pull_request.base.sha || github.event.merge_group.base_sha }}
           n_parents: 2
 
       - name: Separate modules and subworkflows
@@ -132,14 +132,14 @@ jobs:
 
       - name: debug
         run: |
-          echo  ${{ steps.outputs.outputs.modules }}
-          echo  ${{ steps.outputs.outputs.subworkflows }}
+          echo ${{ steps.outputs.outputs.modules }}
+          echo ${{ steps.outputs.outputs.subworkflows }}
 
   nf-core-lint-modules:
-    runs-on:  ${{ github.event.inputs.runners  || 'self-hosted' }}
+    runs-on: ${{ github.event.inputs.runners  || 'self-hosted' }}
     name: nf-core-lint-modules
     needs: [pytest-changes, nf-test-changes]
-    if:  ${{ (needs.pytest-changes.outputs.modules != '[]') || ( needs.nf-test-changes.outputs.modules != '[]') }}
+    if: ${{ (needs.pytest-changes.outputs.modules != '[]') || ( needs.nf-test-changes.outputs.modules != '[]') }}
     strategy:
       fail-fast: false
       matrix:
@@ -160,9 +160,9 @@ jobs:
         id: cache-pip
         with:
           path: ~/.cache/pip
-          key:  ${{ runner.os }}-pip
+          key: ${{ runner.os }}-pip
           restore-keys: |
-             ${{ runner.os }}-pip
+            ${{ runner.os }}-pip
 
       - name: Install pip
         run: python -m pip install --upgrade pip
@@ -178,14 +178,14 @@ jobs:
       - name: Install nf-core tools development version
         run: python -m pip install --upgrade --force-reinstall git+https://github.com/nf-core/tools.git@dev
 
-      - name: Lint module  ${{ matrix.tags }}
-        run: nf-core modules lint  ${{ matrix.tags }}
+      - name: Lint module ${{ matrix.tags }}
+        run: nf-core modules lint ${{ matrix.tags }}
 
   nf-core-lint-subworkflows:
     runs-on: ubuntu-latest
     name: nf-core-lint-modules
     needs: [pytest-changes, nf-test-changes]
-    if:  ${{ (needs.pytest-changes.outputs.subworkflows != '[]') || ( needs.nf-test-changes.outputs.subworkflows != '[]') }}
+    if: ${{ (needs.pytest-changes.outputs.subworkflows != '[]') || ( needs.nf-test-changes.outputs.subworkflows != '[]') }}
     strategy:
       fail-fast: false
       matrix:
@@ -216,11 +216,11 @@ jobs:
       - name: Install nf-core tools development version
         run: python -m pip install --upgrade --force-reinstall git+https://github.com/nf-core/tools.git@dev
 
-      - name: Lint module  ${{ matrix.tags }}
-        run: nf-core subworkflows lint  ${{ matrix.tags }}
+      - name: Lint module ${{ matrix.tags }}
+        run: nf-core subworkflows lint ${{ matrix.tags }}
 
   pytest:
-    runs-on:  ${{ github.event.inputs.runners  || 'self-hosted' }}
+    runs-on: ${{ github.event.inputs.runners  || 'self-hosted' }}
     name: pytest
     needs: [pytest-changes]
     if: needs.pytest-changes.outputs.tags != '[]'
@@ -247,9 +247,9 @@ jobs:
         id: cache-pip-pytest
         with:
           path: ~/.cache/pip
-          key:  ${{ runner.os }}-pip-pytest
+          key: ${{ runner.os }}-pip-pytest
           restore-keys: |
-             ${{ runner.os }}-pip-pytest
+            ${{ runner.os }}-pip-pytest
 
       - name: Install Python dependencies
         run: python -m pip install --upgrade pip pytest-workflow cryptography
@@ -258,7 +258,7 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "17"
-      - name: Setup Nextflow  ${{ matrix.NXF_VER }}
+      - name: Setup Nextflow ${{ matrix.NXF_VER }}
         uses: nf-core/setup-nextflow@v2
         with:
           version: " ${{ matrix.NXF_VER }}"
@@ -278,7 +278,7 @@ jobs:
         with:
           miniconda-version: "latest"
           channels: conda-forge,bioconda
-          python-version:  ${{ matrix.python-version }}
+          python-version: ${{ matrix.python-version }}
 
       - name: Conda setup
         run: |
@@ -294,7 +294,6 @@ jobs:
         if: env.SENTIEON_ENCRYPTION_KEY != null && env.SENTIEON_LICENSE_MESSAGE != null
         run: |
           nextflow secrets set SENTIEON_AUTH_DATA $(python3 tests/modules/nf-core/sentieon/license_message.py encrypt --key "${{ secrets.SENTIEON_ENCRYPTION_KEY }}" --message " ${{ secrets.SENTIEON_LICENSE_MESSAGE }}")
-
 
       # Test the module
       - name: Run pytest-workflow
@@ -331,7 +330,7 @@ jobs:
             ! ${{ github.workspace }}/.singularity
 
   nf-test:
-    runs-on:  ${{ github.event.inputs.runners  || 'self-hosted' }}
+    runs-on: ${{ github.event.inputs.runners  || 'self-hosted' }}
     name: nf-test
     needs: [nf-test-changes]
     if: ( needs.nf-test-changes.outputs.paths != '[]' )
@@ -359,7 +358,7 @@ jobs:
       - name: Install nf-test
         uses: nf-core/setup-nf-test@v1
         with:
-          version:  ${{ env.NFTEST_VER }}
+          version: ${{ env.NFTEST_VER }}
 
       - name: Setup apptainer
         if: matrix.profile == 'singularity'
@@ -380,9 +379,9 @@ jobs:
         id: cache-pip-pdiff
         with:
           path: ~/.cache/pip
-          key:  ${{ runner.os }}-pip-pdiff
+          key: ${{ runner.os }}-pip-pdiff
           restore-keys: |
-             ${{ runner.os }}-pip-pdiff
+            ${{ runner.os }}-pip-pdiff
 
       - name: Install Python dependencies
         run: python -m pip install --upgrade pip pdiff cryptography
@@ -409,7 +408,7 @@ jobs:
         env:
           NFT_DIFF: "pdiff"
           NFT_DIFF_ARGS: "--line-numbers --width 120 --expand-tabs=2"
-          SENTIEON_LICSRVR_IP:  ${{ secrets.SENTIEON_LICSRVR_IP }}
+          SENTIEON_LICSRVR_IP: ${{ secrets.SENTIEON_LICSRVR_IP }}
           SENTIEON_AUTH_MECH: "GitHub Actions - token"
         run: |
           # use "docker_self_hosted" if it runs on self-hosted runner and matrix.profile=docker
@@ -424,7 +423,7 @@ jobs:
             --profile= ${{ matrix.profile }} \
             --tap=test.tap \
             --verbose \
-             ${{ matrix.path }}
+            ${{ matrix.path }}
 
       - uses: pcolby/tap-summary@0959cbe1d4422e62afc65778cdaea6716c41d936 # v1
         with:
@@ -452,14 +451,14 @@ jobs:
     if: always()
     steps:
       - name: All tests ok
-        if:  ${{ success() || !contains(needs.*.result, 'failure') }}
+        if: ${{ success() || !contains(needs.*.result, 'failure') }}
         run: exit 0
       - name: One or more tests failed
-        if:  ${{ contains(needs.*.result, 'failure') }}
+        if: ${{ contains(needs.*.result, 'failure') }}
         run: exit 1
 
       - name: debug-print
         if: always()
         run: |
-          echo "toJSON(needs) =  ${{ toJSON(needs) }}"
-          echo "toJSON(needs.*.result) =  ${{ toJSON(needs.*.result) }}"
+          echo "toJSON(needs) = ${{ toJSON(needs) }}"
+          echo "toJSON(needs.*.result) = ${{ toJSON(needs.*.result) }}"
