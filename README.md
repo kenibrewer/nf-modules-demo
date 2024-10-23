@@ -7,7 +7,7 @@ Adapted from [nf-core/modules/README.md](https://github.com/nf-core/modules/blob
 [![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
 [![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)
 
-An nf-core modules repository hosting Nextflow DSL2 modules for the kenibrewer organization.
+A demo nf-core style modules library generated using kenibrewer/nf-modules-template.
 
 ## Table of contents
 
