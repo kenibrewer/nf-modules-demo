@@ -1,6 +1,7 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: '5188273'
+_commit: 17eb3a4
 _src_path: .
+copyright_license: ISC License
 default_branch: main
 description: An nf-core modules repository hosting Nextflow DSL2 modules for the kenibrewer
     organization.
