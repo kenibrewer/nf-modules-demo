@@ -85,8 +85,8 @@ jobs:
       - name: Fetch module tags
         id: tags
         run: |
-          echo modules=$(echo ' ${{ steps.filter.outputs.changes }}' | jq -c '. | map(select(contains("modules"))) | map(gsub("modules/"; ""))') >> $GITHUB_OUTPUT
-          echo subworkflows=$(echo ' ${{ steps.filter.outputs.changes }}' | jq '. | map(select(contains("subworkflow"))) | map(gsub("subworkflows/"; ""))') >> $GITHUB_OUTPUT
+          echo modules=$(echo '${{ steps.filter.outputs.changes }}' | jq -c '. | map(select(contains("modules"))) | map(gsub("modules/"; ""))') >> $GITHUB_OUTPUT
+          echo subworkflows=$(echo '${{ steps.filter.outputs.changes }}' | jq '. | map(select(contains("subworkflow"))) | map(gsub("subworkflows/"; ""))') >> $GITHUB_OUTPUT
 
       - name: debug
         run: |
@@ -119,8 +119,8 @@ jobs:
       - name: Separate modules and subworkflows
         id: outputs
         run: |
-          echo modules=$(echo ' ${{ steps.list.outputs.components }}' | jq -c '. | map(select(contains("modules"))) | map(gsub("modules//"; ""))') >> $GITHUB_OUTPUT
-          echo subworkflows=$(echo ' ${{ steps.list.outputs.components }}' | jq '. | map(select(contains("subworkflows"))) | map(gsub("subworkflows//"; ""))') >> $GITHUB_OUTPUT
+          echo modules=$(echo '${{ steps.list.outputs.components }}' | jq -c '. | map(select(contains("modules"))) | map(gsub("modules/kbrewer/"; ""))') >> $GITHUB_OUTPUT
+          echo subworkflows=$(echo '${{ steps.list.outputs.components }}' | jq '. | map(select(contains("subworkflows"))) | map(gsub("subworkflows/kbrewer/"; ""))') >> $GITHUB_OUTPUT
 
       - name: debug
         run: |
