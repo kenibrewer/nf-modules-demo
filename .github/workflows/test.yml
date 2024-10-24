@@ -405,7 +405,7 @@ jobs:
         run: |
           NFT_WORKDIR=~ \
           nf-test test \
-            --profile= ${{ matrix.profile }} \
+            --profile=${{ matrix.profile }} \
             --tap=test.tap \
             --verbose \
             ${{ matrix.path }}
