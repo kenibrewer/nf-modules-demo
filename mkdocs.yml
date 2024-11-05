@@ -1,8 +1,8 @@
-site_name: "{{ org_name }}/{{ repo_name }}"
-site_description: "{{ description }}"
-site_url: "https://{{ org_name }}.github.io/{{ repo_name }}"
-repo_url: "https://github.com/{{ org_name }}/{{ repo_name }}"
-repo_name: "{{ org_name }}/{{ repo_name }}"
+site_name: "kenibrewer/nf-modules-demo"
+site_description: "A demo nf-core style modules library generated using nf-core/modules-template."
+site_url: "https://kenibrewer.github.io/nf-modules-demo"
+repo_url: "https://github.com/kenibrewer/nf-modules-demo"
+repo_name: "kenibrewer/nf-modules-demo"
 
 validation:
   omitted_files: warn

@@ -1,11 +1,13 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: 0.1.0-4-g0acede6
+_commit: 0.1.0-5-gf49e720
 _src_path: .
+ci: github
 copyright_holder: Ken Brewer
 copyright_license: MIT License
 copyright_year: 2024
 default_branch: main
 description: A demo nf-core style modules library generated using nf-core/modules-template.
-org_name: kenibrewer
+repo_host: https://github.com
 repo_name: nf-modules-demo
+repo_org_name: kenibrewer
 short_org_name: kbrewer
