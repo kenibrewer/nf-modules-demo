@@ -7,7 +7,7 @@ Adapted from [nf-core/modules/README.md](https://github.com/nf-core/modules/blob
 [![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
 [![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)
 
-A demo nf-core style modules library generated using kenibrewer/nf-modules-template.
+A demo nf-core style modules library generated using nf-core/modules-template.
 
 ## Table of contents
 
@@ -148,7 +148,7 @@ If you use the module files in this repository for your analysis please you can 
 
 ## Template
 
-This module library was create using [kenibrewer/nf-modules-template](https://github.com/kenibrewer/nf-modules-template).
+This module library was create using [nf-core/modules-template](https://github.com/nf-core/modules-template).
 
 You can fetch updates to the library template by running:
 
